@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "runningsnsfrontf09d1c2d": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
