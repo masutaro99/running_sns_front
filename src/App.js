@@ -1,17 +1,29 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
+import indigo from "@material-ui/core/colors/indigo";
+import Navbar from "./components/Navbar";
+
+const theme = createMuiTheme({
+  pallete: {
+    primary: indigo,
+    secondary: {
+      main: "#f44336",
+    },
+  },
+  typography: {
+    frontfamily: "Comic Neue",
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header>
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>We now have Auth!</h1>
-      </header>
+    <MuiThemeProvider theme={theme}>
+      <Navbar />
       <AmplifySignOut />
-    </div>
+    </MuiThemeProvider>
   );
 }
 
