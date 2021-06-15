@@ -5,6 +5,8 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import indigo from "@material-ui/core/colors/indigo";
 import Navbar from "./components/Navbar";
+import { Auth } from "aws-amplify";
+import Main from "./components/Main";
 
 const theme = createMuiTheme({
   pallete: {
@@ -18,10 +20,15 @@ const theme = createMuiTheme({
   },
 });
 
+const user = Auth.currentAuthenticatedUser();
+
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <Navbar />
+      <div className="container">
+        <Main />
+      </div>
       <AmplifySignOut />
     </MuiThemeProvider>
   );
