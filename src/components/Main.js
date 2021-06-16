@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { Auth } from "aws-amplify";
 import axios from "axios";
+import Profile from "./Profile";
 
 const listProfiles = "test";
 
@@ -28,10 +29,11 @@ const Main = () => {
         <div className="app-profiles">
           <div className="task-list">
             {practices.map((practice) => (
-              <li key={practice.id}>
-                title:{practice.title} description:{practice.description}{" "}
-                distance:{practice.distance}
-              </li>
+              // <li key={practice.id}>
+              //   title:{practice.title} description:{practice.description}{" "}
+              //   distance:{practice.distance}
+              // </li>
+              <Profile key={practice.id} profileData={practice}></Profile>
             ))}
           </div>
         </div>
