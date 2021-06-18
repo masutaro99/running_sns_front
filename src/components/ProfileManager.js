@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import LocationOn from "@material-ui/icons/LocationOn";
 import { BsPersonCheckFill } from "react-icons/bs";
 import { MdAddAPhoto } from "react-icons/md";
 import { FaUserEdit } from "react-icons/fa";
 import { IconButton } from "@material-ui/core";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles((theme) => ({
   profile: {
@@ -43,44 +44,38 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileManager = (props) => {
   const classes = useStyles();
+  const [username, setUsername] = useState([]);
+  const [uid, setUid] = useState([]);
 
   const handleEditPicture = () => {
     const fileInput = document.getElementById("imageInput");
     fileInput.click();
   };
+  useEffect(() => {
+    Auth.currentAuthenticatedUser().then((data) => {
+      setUsername(data.username);
+      setUid(data.attributes.sub);
+    });
+  }, []);
 
   return (
-    <div className="profile">
-      <div className="image-wrapper">
-        {/* <input
-          type="file"
-          id="imageInput"
-          hidden="hidden"
-          onChange={(event) => {
-            //setCover(event.target.files[0]);
-            event.target.value = "";
-            // axios.post(
-            //   "http:127.0.0.1:3000/v1/profiles/upload_image/",
-            //   event.target.files[0],
-            //   {
-            //     headers: {
-            //       Authorization: token,
-            //     },
-            //   }
-            // );
-          }}
-        /> */}
-        <IconButton onClick={handleEditPicture}>
-          <MdAddAPhoto className="photo" />
-        </IconButton>
-      </div>
-      <div className="profile-details">
-        <BsPersonCheckFill className="badge" />
-        <hr />
-        <label>
-          <LocationOn />
-          <span>JAPAN</span>
-        </label>
+    <div className={classes.app}>
+      <div className="profile">
+        <div className="image-wrapper">
+          <IconButton onClick={handleEditPicture}>
+            <MdAddAPhoto className="photo" />
+          </IconButton>
+        </div>
+        <div>{username}</div>
+        <div>ID：{uid}</div>
+        <div className="profile-details">
+          <BsPersonCheckFill className="badge" />
+          <hr />
+          <label>
+            <LocationOn />
+            <span>JAPAN</span>
+          </label>
+        </div>
       </div>
     </div>
   );
