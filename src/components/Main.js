@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { Auth } from "aws-amplify";
 import axios from "axios";
 import Profile from "./Profile";
+import ProfileManager from "./ProfileManager";
 
 const listProfiles = "test";
 
@@ -15,7 +16,9 @@ const Main = () => {
     });
     const getPractice = async () => {
       try {
-        const res = await axios.get("http://localhost/practices");
+        const res = await axios.get(
+          process.env.REACT_APP_API_URL + "practices"
+        );
         setPractices(res.data);
       } catch {
         console.log("error");
@@ -29,17 +32,15 @@ const Main = () => {
         <div className="app-profiles">
           <div className="task-list">
             {practices.map((practice) => (
-              // <li key={practice.id}>
-              //   title:{practice.title} description:{practice.description}{" "}
-              //   distance:{practice.distance}
-              // </li>
               <Profile key={practice.id} profileData={practice}></Profile>
             ))}
           </div>
         </div>
       </Grid>
       <Grid item xs={4}>
-        <div className="app-details">{username}</div>
+        <div className="app-details">
+          <ProfileManager />
+        </div>
       </Grid>
     </Grid>
   );

@@ -55,3 +55,25 @@
   overflow: hidden;
   overflow-y: auto;
 }
+
+.title-ask {
+  margin-right: 30px;
+}
+
+.badge {
+  background-color: transparent;
+  color: grey;
+  margin-right: 7px;
+  font-size: 22px;
+  border: none;
+  outline: none;
+}
+
+.photo {
+  background-color: transparent;
+  color: lightgray;
+  font-size: 30px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
