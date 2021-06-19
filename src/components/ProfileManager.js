@@ -61,7 +61,11 @@ const ProfileManager = (props) => {
   return (
     <div className={classes.profile}>
       <div className="image-wrapper">
-        <img src="" alt="profile" className="profile-image" />
+        <img
+          src="https://maskenpa1001.s3.ap-northeast-1.amazonaws.com/icon_normal.png"
+          alt="profile"
+          className="profile-image"
+        />
         <IconButton onClick={handleEditPicture}>
           <MdAddAPhoto className="photo" />
         </IconButton>
