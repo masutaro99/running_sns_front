@@ -59,23 +59,22 @@ const ProfileManager = (props) => {
   }, []);
 
   return (
-    <div className={classes.app}>
-      <div className="profile">
-        <div className="image-wrapper">
-          <IconButton onClick={handleEditPicture}>
-            <MdAddAPhoto className="photo" />
-          </IconButton>
-        </div>
-        <div>{username}</div>
-        <div>ID：{uid}</div>
-        <div className="profile-details">
-          <BsPersonCheckFill className="badge" />
-          <hr />
-          <label>
-            <LocationOn />
-            <span>JAPAN</span>
-          </label>
-        </div>
+    <div className={classes.profile}>
+      <div className="image-wrapper">
+        <img src="" alt="profile" className="profile-image" />
+        <IconButton onClick={handleEditPicture}>
+          <MdAddAPhoto className="photo" />
+        </IconButton>
+      </div>
+      <div className="profile-details">
+        <BsPersonCheckFill className="badge" /> {<span>{username}</span>}
+        <hr />
+        {<span>ID：{uid}</span>}
+        <hr />
+        <label>
+          <LocationOn />
+          <span>JAPAN</span>
+        </label>
       </div>
     </div>
   );
