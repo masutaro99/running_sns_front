@@ -6,11 +6,6 @@ import RepeatIcon from "@material-ui/icons/Repeat";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import PublishIcon from "@material-ui/icons/Publish";
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-}));
 const Profile = ({ profileData }) => {
   return (
     <div className="post">
@@ -22,7 +17,10 @@ const Profile = ({ profileData }) => {
           <div className="post__headerText">
             <h3>
               {profileData.title}
-              <span className="post__headerSpecial">by{"username"}</span>
+              <span className="post__headerSpecial">
+                by{profileData.username}
+              </span>
+              <span>{profileData.userid}</span>
             </h3>
           </div>
           <div className="post__headerDescription">

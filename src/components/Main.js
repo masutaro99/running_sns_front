@@ -10,16 +10,21 @@ const listProfiles = "test";
 
 const Main = () => {
   const [username, setUsername] = useState([]);
+  const [userId, setUserId] = useState([]);
   const [practices, setPractices] = useState([]);
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
   const [Distance, setDistance] = useState("");
   const sendTweet = () => {
     try {
+      const usernametmp = username;
+      const userIdtmp = userId;
       const data = {
         title: Title,
         description: Description,
         distance: Distance,
+        username: usernametmp,
+        userid: userIdtmp,
       };
       const res = axios.post(process.env.REACT_APP_API_URL + "practices", data);
     } catch {
@@ -29,6 +34,7 @@ const Main = () => {
   useEffect(() => {
     Auth.currentAuthenticatedUser().then((data) => {
       setUsername(data.username);
+      setUserId(data.attributes.sub);
     });
     const getPractice = async () => {
       try {
