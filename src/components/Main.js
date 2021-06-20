@@ -4,12 +4,28 @@ import { Auth } from "aws-amplify";
 import axios from "axios";
 import Profile from "./Profile";
 import ProfileManager from "./ProfileManager";
+import { Avatar, Button } from "@material-ui/core";
 
 const listProfiles = "test";
 
 const Main = () => {
   const [username, setUsername] = useState([]);
   const [practices, setPractices] = useState([]);
+  const [Title, setTitle] = useState("");
+  const [Description, setDescription] = useState("");
+  const [Distance, setDistance] = useState("");
+  const sendTweet = () => {
+    try {
+      const data = {
+        title: Title,
+        description: Description,
+        distance: Distance,
+      };
+      const res = axios.post(process.env.REACT_APP_API_URL + "practices", data);
+    } catch {
+      console.log("error");
+    }
+  };
   useEffect(() => {
     Auth.currentAuthenticatedUser().then((data) => {
       setUsername(data.username);
@@ -43,6 +59,44 @@ const Main = () => {
       <Grid item xs={4}>
         <div className="app-details">
           <ProfileManager />
+        </div>
+        <div className="tweetBox">
+          <form>
+            <div className="tweetBox__input">
+              <Avatar src="https://maskenpa1001.s3.ap-northeast-1.amazonaws.com/icon_normal.png" />
+
+              <input
+                onChange={(e) => setTitle(e.target.value)}
+                value={Title}
+                className="tweetBox__imageInput"
+                placeholder="Title"
+                type="text"
+              />
+            </div>
+
+            <input
+              value={Description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="tweetBox imageInput"
+              placeholder="Description"
+              type="text"
+            />
+            <input
+              value={Distance}
+              onChange={(e) => setDistance(e.target.value)}
+              className="tweetBox imageInput"
+              placeholder="Distance"
+              type="number"
+              step="0.1"
+            />
+            <Button
+              onClick={sendTweet}
+              type="submit"
+              className="tweetBox__tweetButton"
+            >
+              Tweet
+            </Button>
+          </form>
         </div>
       </Grid>
     </Grid>

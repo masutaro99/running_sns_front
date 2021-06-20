@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
+import { Avatar } from "@material-ui/core";
+import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
+import RepeatIcon from "@material-ui/icons/Repeat";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import PublishIcon from "@material-ui/icons/Publish";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -11,16 +13,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Profile = ({ profileData }) => {
   return (
-    <Card style={{ position: "relative", display: "flex", marginBottom: 10 }}>
-      <CardContent sytle={{ padding: 5 }}>
-        <Typography variant="h6">
-          title: {profileData.title} 距離:{profileData.distance}
-        </Typography>
-        <Typography>
-          <span>詳細:{profileData.description}</span>
-        </Typography>
-      </CardContent>
-    </Card>
+    <div className="post">
+      <div className="post__avatar">
+        <Avatar src="https://maskenpa1001.s3.ap-northeast-1.amazonaws.com/icon_normal.png" />
+      </div>
+      <div className="post__body">
+        <div className="post__header">
+          <div className="post__headerText">
+            <h3>
+              {profileData.title}
+              <span className="post__headerSpecial">by{"username"}</span>
+            </h3>
+          </div>
+          <div className="post__headerDescription">
+            <p>{profileData.description}</p>
+          </div>
+          <div className="post__headerDescription">
+            <p>Distance : {profileData.distance} km</p>
+          </div>
+          <div className="post__footer">
+            <ChatBubbleOutlineIcon fontSize="small" />
+            <RepeatIcon fontSize="small" />
+            <FavoriteBorderIcon fontSize="small" />
+            <PublishIcon fontSize="small" />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
