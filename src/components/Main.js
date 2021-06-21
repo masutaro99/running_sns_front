@@ -1,18 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
-import { Auth } from "aws-amplify";
-import axios from "axios";
 import Practice from "./Practice";
 import ProfileManager from "./ProfileManager";
 import { Avatar, Button } from "@material-ui/core";
 import { ApiContext } from "../context/ApiContext";
+import axios from "axios";
 
 const Main = () => {
-  const [username, setUsername] = useState([]);
-  const [userId, setUserId] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [distance, setDistance] = useState("");
+  const { practices, username, userId } = useContext(ApiContext);
   const sendTweet = () => {
     try {
       const usernametmp = username;
@@ -29,13 +27,7 @@ const Main = () => {
       console.log("error");
     }
   };
-  const { practices } = useContext(ApiContext);
-  useEffect(() => {
-    Auth.currentAuthenticatedUser().then((data) => {
-      setUsername(data.username);
-      setUserId(data.attributes.sub);
-    });
-  }, []);
+
   return (
     <Grid container>
       <Grid item xs={4}>

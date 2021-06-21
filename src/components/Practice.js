@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { ApiContext } from "../context/ApiContext";
 import { Avatar } from "@material-ui/core";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -6,18 +7,17 @@ import { BsTrash } from "react-icons/bs";
 import axios from "axios";
 
 const Practice = ({ practiceData }) => {
+  const { practices, setPractices } = useContext(ApiContext);
   const deletePractice = async () => {
     console.log(practiceData.id);
     console.log(
       process.env.REACT_APP_API_URL + "practices/" + String(practiceData.id)
     );
-    try {
-      axios.delete(
-        process.env.REACT_APP_API_URL + "practices/" + String(practiceData.id)
-      );
-    } catch {
-      console.log("error");
-    }
+
+    axios.delete(
+      process.env.REACT_APP_API_URL + "practices/" + String(practiceData.id)
+    );
+    setPractices(practices.filter((dev) => dev.id !== practiceData.id));
   };
   return (
     <div className="post">
