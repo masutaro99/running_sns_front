@@ -7,6 +7,7 @@ import indigo from "@material-ui/core/colors/indigo";
 import Navbar from "./components/Navbar";
 import { Auth } from "aws-amplify";
 import Main from "./components/Main";
+import ApiContextProvider from "./context/ApiContext";
 
 const theme = createMuiTheme({
   pallete: {
@@ -24,13 +25,15 @@ const user = Auth.currentAuthenticatedUser();
 
 function App() {
   return (
-    <MuiThemeProvider theme={theme}>
-      <Navbar />
-      <div className="container">
-        <Main />
-      </div>
-      <AmplifySignOut />
-    </MuiThemeProvider>
+    <ApiContextProvider>
+      <MuiThemeProvider theme={theme}>
+        <Navbar />
+        <div className="container">
+          <Main />
+        </div>
+        <AmplifySignOut />
+      </MuiThemeProvider>
+    </ApiContextProvider>
   );
 }
 

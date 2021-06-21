@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import LocationOn from "@material-ui/icons/LocationOn";
 import { BsPersonCheckFill } from "react-icons/bs";
 import { MdAddAPhoto } from "react-icons/md";
-import { FaUserEdit } from "react-icons/fa";
 import { IconButton } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 

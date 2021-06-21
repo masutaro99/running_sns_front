@@ -2,27 +2,25 @@ import React, { useContext, useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { Auth } from "aws-amplify";
 import axios from "axios";
-import Profile from "./Profile";
+import Practice from "./Practice";
 import ProfileManager from "./ProfileManager";
 import { Avatar, Button } from "@material-ui/core";
-
-const listProfiles = "test";
+import { ApiContext } from "../context/ApiContext";
 
 const Main = () => {
   const [username, setUsername] = useState([]);
   const [userId, setUserId] = useState([]);
-  const [practices, setPractices] = useState([]);
-  const [Title, setTitle] = useState("");
-  const [Description, setDescription] = useState("");
-  const [Distance, setDistance] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [distance, setDistance] = useState("");
   const sendTweet = () => {
     try {
       const usernametmp = username;
       const userIdtmp = userId;
       const data = {
-        title: Title,
-        description: Description,
-        distance: Distance,
+        title: title,
+        description: description,
+        distance: distance,
         username: usernametmp,
         userid: userIdtmp,
       };
@@ -31,25 +29,12 @@ const Main = () => {
       console.log("error");
     }
   };
+  const { practices } = useContext(ApiContext);
   useEffect(() => {
     Auth.currentAuthenticatedUser().then((data) => {
       setUsername(data.username);
       setUserId(data.attributes.sub);
     });
-    const getPractice = async () => {
-      try {
-        console.log(process.env.REACT_APP_API_URL + "practices");
-        const res = await axios.get(
-          process.env.REACT_APP_API_URL + "practices"
-          //"http://running-sns.masutaro99.com/practices"
-        );
-
-        setPractices(res.data);
-      } catch {
-        console.log("error");
-      }
-    };
-    getPractice();
   }, []);
   return (
     <Grid container>
@@ -57,7 +42,7 @@ const Main = () => {
         <div className="app-profiles">
           <div className="task-list">
             {practices.map((practice) => (
-              <Profile key={practice.id} profileData={practice}></Profile>
+              <Practice key={practice.id} practiceData={practice}></Practice>
             ))}
           </div>
         </div>
@@ -72,25 +57,25 @@ const Main = () => {
               <Avatar src="https://maskenpa1001.s3.ap-northeast-1.amazonaws.com/icon_normal.png" />
 
               <input
+                value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                value={Title}
-                className="tweetBox__imageInput"
+                className="tweetBox_title"
                 placeholder="Title"
                 type="text"
               />
             </div>
 
             <input
-              value={Description}
+              value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="tweetBox imageInput"
+              className="tweetBox_description"
               placeholder="Description"
               type="text"
             />
             <input
-              value={Distance}
+              value={distance}
               onChange={(e) => setDistance(e.target.value)}
-              className="tweetBox imageInput"
+              className="tweetBox_distance"
               placeholder="Distance"
               type="number"
               step="0.1"
