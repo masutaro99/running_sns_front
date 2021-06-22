@@ -5,8 +5,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import Badge from "@material-ui/core/Badge";
-import { FiLogOut } from "react-icons/fi";
-import { withCookie } from "react-cookie";
 
 const useStyles = makeStyles((theme) => ({
   bg: {

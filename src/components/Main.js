@@ -31,8 +31,8 @@ const Main = () => {
   return (
     <Grid container>
       <Grid item xs={4}>
-        <div className="app-profiles">
-          <div className="task-list">
+        <div className="app-practices">
+          <div className="practices-list">
             {practices.map((practice) => (
               <Practice key={practice.id} practiceData={practice}></Practice>
             ))}
@@ -40,7 +40,7 @@ const Main = () => {
         </div>
       </Grid>
       <Grid item xs={4}>
-        <div className="app-details">
+        <div className="app-profile">
           <ProfileManager />
         </div>
         <div className="tweetBox">

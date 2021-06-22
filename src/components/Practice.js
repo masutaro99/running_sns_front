@@ -20,34 +20,25 @@ const Practice = ({ practiceData }) => {
     setPractices(practices.filter((dev) => dev.id !== practiceData.id));
   };
   return (
-    <div className="post">
-      <div className="post__avatar">
+    <div className="practice">
+      <div className="practice_avatar">
         <Avatar src="https://maskenpa1001.s3.ap-northeast-1.amazonaws.com/icon_normal.png" />
       </div>
-      <div className="post__body">
-        <div className="post__header">
-          <div className="post__headerText">
-            <h3>
-              {practiceData.title}
-              <span className="post__headerSpecial">
-                by{practiceData.username}
-              </span>
-              <span>{practiceData.userid}</span>
-            </h3>
-          </div>
-          <div className="post__headerDescription">
-            <p>{practiceData.description}</p>
-          </div>
-          <div className="post__headerDescription">
-            <p>Distance : {practiceData.distance} km</p>
-          </div>
-          <div className="post__footer">
-            <ChatBubbleOutlineIcon fontSize="small" />
-            <FavoriteBorderIcon fontSize="small" />
-            <button className="trash" onClick={() => deletePractice()}>
-              <BsTrash />
-            </button>
-          </div>
+      <div className="practice_body">
+        <span className="practice_title">{practiceData.title}</span>
+        <span className="practice_username">by {practiceData.username}</span>
+        <div className="practice_description">
+          <p>{practiceData.description}</p>
+        </div>
+        <div className="practice_distance">
+          <p>Distance : {practiceData.distance} km</p>
+        </div>
+        <div className="practice_footer">
+          <ChatBubbleOutlineIcon fontSize="small" />
+          <FavoriteBorderIcon fontSize="small" />
+          <button className="trash" onClick={() => deletePractice()}>
+            <BsTrash />
+          </button>
         </div>
       </div>
     </div>
