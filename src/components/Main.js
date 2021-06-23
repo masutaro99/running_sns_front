@@ -5,12 +5,13 @@ import ProfileManager from "./ProfileManager";
 import { Avatar, Button } from "@material-ui/core";
 import { ApiContext } from "../context/ApiContext";
 import axios from "axios";
+import Modal from "./Modal"
 
 const Main = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [distance, setDistance] = useState("");
-  const { practices, username, userId } = useContext(ApiContext);
+  const { practices, username, userId} = useContext(ApiContext);
   const sendTweet = () => {
     try {
       const usernametmp = username;
@@ -81,6 +82,7 @@ const Main = () => {
             </Button>
           </form>
         </div>
+        <Modal/>
       </Grid>
     </Grid>
   );

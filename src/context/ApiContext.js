@@ -7,6 +7,8 @@ const ApiContextProvider = (props) => {
   const [practices, setPractices] = useState([]);
   const [username, setUsername] = useState([]);
   const [userId, setUserId] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedEditTarget, setSelectedEditTarget] = useState(0);
   useEffect(() => {
     const getPractice = async () => {
       try {
@@ -23,10 +25,22 @@ const ApiContextProvider = (props) => {
     };
     getPractice();
     Auth.currentAuthenticatedUser().then((data) => {
-      setUsername(data.username);
+      setUsername(data.username)
       setUserId(data.attributes.sub);
     });
   }, []);
+  const editPracticePatch = (title, description, distance) => {
+    const data = {
+      title: title,
+      description: description,
+      distance: distance
+    };
+    //console.log(data)
+    axios.patch(
+      process.env.REACT_APP_API_URL + "practices/" + String(selectedEditTarget),
+      data
+    );
+  }
 
   return (
     <ApiContext.Provider
@@ -35,6 +49,11 @@ const ApiContextProvider = (props) => {
         setPractices,
         username,
         userId,
+        showModal,
+        setShowModal,
+        selectedEditTarget,
+        setSelectedEditTarget,
+        editPracticePatch
       }}
     >
       {props.children}

@@ -176,3 +176,24 @@
   margin-top: 20px !important;
   margin-left: auto !important;
 }
+
+#modalContent {
+  background-color: white;
+  padding: 10px;
+  border-radius: "3px";
+}
+
+#overlay {
+  /*　画面全体を覆う設定　*/
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  /*　画面の中央に要素を表示させる設定　*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
