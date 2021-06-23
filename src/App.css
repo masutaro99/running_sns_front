@@ -177,6 +177,7 @@
   margin-left: auto !important;
 }
 
+/* モーダルコンポーネント */
 #modalContent {
   background-color: white;
   padding: 10px;

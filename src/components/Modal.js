@@ -2,11 +2,17 @@ import React, { useContext, useState } from "react";
 import { ApiContext } from "../context/ApiContext";
 
 const Modal = () => {
-  const [editedtitle, setEditedTitle] = useState("");
-  const [editeddescription, setEditedDescription] = useState("");
-  const [editeddistance, setEditedDistance] = useState("");
-  const { showModal, setShowModal, editPracticePatch} = useContext(ApiContext);
-  // useContextでAPIContextからeditpractice関数を持ってきて、引数にedited変数を入れてpostする
+  const {
+    showModal,
+    setShowModal,
+    editPracticePatch,
+    editedtitle,
+    setEditedTitle,
+    editeddescription,
+    setEditedDescription,
+    editeddistance,
+    setEditedDistance,
+  } = useContext(ApiContext);
   const closeModal = () => {
     setShowModal(false);
     setEditedTitle("");
@@ -14,18 +20,18 @@ const Modal = () => {
     setEditedDistance("");
   };
   const editPractice = () => {
-    editPracticePatch(editedtitle, editeddescription, editeddistance)
+    editPracticePatch(editedtitle, editeddescription, editeddistance);
     setEditedTitle("");
     setEditedDescription("");
     setEditedDistance("");
     setShowModal(false);
-  }
+  };
   return (
     <>
       {showModal ? ( // showFlagがtrueだったらModalを表示する
         <div id="overlay">
           <div id="modalContent">
-            <p>This is ModalContent</p>
+            <p>編集画面</p>
             <input
               value={editedtitle}
               onChange={(e) => setEditedTitle(e.target.value)}
@@ -50,7 +56,7 @@ const Modal = () => {
           </div>
         </div>
       ) : (
-        <></>// showFlagがfalseの場合はModalは表示しない
+        <></> // showFlagがfalseの場合はModalは表示しない
       )}
     </>
   );

@@ -8,18 +8,23 @@ import EditIcon from "@material-ui/icons/Edit";
 import axios from "axios";
 
 const Practice = ({ practiceData }) => {
-  const { practices, setPractices, showModal, setShowModal, selectedEditTarget, setSelectedEditTarget } = useContext(ApiContext);
+  const {
+    practices,
+    setPractices,
+    setShowModal,
+    setSelectedEditTarget,
+    setEditedTitle,
+    setEditedDescription,
+    setEditedDistance,
+  } = useContext(ApiContext);
   const editPractice = async () => {
+    setSelectedEditTarget(practiceData.id);
+    setEditedTitle(practiceData.title);
+    setEditedDescription(practiceData.description);
+    setEditedDistance(practiceData.distance);
     setShowModal(true);
-    setSelectedEditTarget(practiceData.id)
-    console.log(practiceData.id)
   };
   const deletePractice = async () => {
-    // console.log(practiceData.id);
-    // console.log(
-    //   process.env.REACT_APP_API_URL + "practices/" + String(practiceData.id)
-    // );
-
     axios.delete(
       process.env.REACT_APP_API_URL + "practices/" + String(practiceData.id)
     );
@@ -31,7 +36,9 @@ const Practice = ({ practiceData }) => {
         <Avatar src="https://maskenpa1001.s3.ap-northeast-1.amazonaws.com/icon_normal.png" />
       </div>
       <div className="practice_body">
-        <span className="practice_title">{practiceData.title}  id:{practiceData.id}</span>
+        <span className="practice_title">
+          {practiceData.title} id:{practiceData.id}
+        </span>
         <span className="practice_username">by {practiceData.username}</span>
         <div className="practice_description">
           <p>{practiceData.description}</p>
