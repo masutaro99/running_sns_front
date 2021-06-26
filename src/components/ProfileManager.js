@@ -4,7 +4,6 @@ import LocationOn from "@material-ui/icons/LocationOn";
 import { BsPersonCheckFill } from "react-icons/bs";
 import { MdAddAPhoto } from "react-icons/md";
 import { IconButton } from "@material-ui/core";
-import { Auth } from "aws-amplify";
 import { ApiContext } from "../context/ApiContext";
 import { BsPersonPlus } from "react-icons/bs";
 
@@ -45,29 +44,25 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileManager = (props) => {
   const classes = useStyles();
-  const [username, setUsername] = useState([]);
-  const [uid, setUid] = useState([]);
-  const { cover, setCover, createProfile } = useContext(ApiContext);
+  const { setCover, createProfile, username, userId } = useContext(ApiContext);
 
   const handleEditPicture = () => {
     const fileInput = document.getElementById("imageInput");
     fileInput.click();
   };
-  useEffect(() => {
-    Auth.currentAuthenticatedUser().then((data) => {
-      setUsername(data.username);
-      setUid(data.attributes.sub);
-    });
-  }, []);
 
   return (
     <div className={classes.profile}>
       <div className="image-wrapper">
-        <img
-          src="https://maskenpa1001.s3.ap-northeast-1.amazonaws.com/icon_normal.png"
-          alt="profile"
-          className="profile-image"
-        />
+        {props.path ? (
+          <img src={props.path} alt="profile" className="profile-image" />
+        ) : (
+          <img
+            src="https://maskenpa1001.s3.ap-northeast-1.amazonaws.com/icon_normal.png"
+            alt="profile"
+            className="profile-image"
+          />
+        )}
         <input
           type="file"
           id="imageInput"
@@ -89,7 +84,7 @@ const ProfileManager = (props) => {
       <div className="profile-details">
         <BsPersonCheckFill className="badge" /> {<span>{username}</span>}
         <hr />
-        {<span>ID：{uid}</span>}
+        {<span>ID：{userId}</span>}
         <hr />
         <label>
           <LocationOn />

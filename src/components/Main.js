@@ -5,13 +5,30 @@ import ProfileManager from "./ProfileManager";
 import { Avatar, Button } from "@material-ui/core";
 import { ApiContext } from "../context/ApiContext";
 import axios from "axios";
-import Modal from "./Modal"
+import Modal from "./Modal";
 
 const Main = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [distance, setDistance] = useState("");
-  const { practices, username, userId} = useContext(ApiContext);
+  const [path, setPath] = useState([]);
+  const { practices, username, userId } = useContext(ApiContext);
+
+  useEffect(() => {
+    const getImage = async () => {
+      const res = await axios.get(
+        process.env.REACT_APP_API_URL + `imgs/1?username=${username}`
+      );
+      console.log(res.data);
+      if (res.data !== null) {
+        setPath(res.data.imagepath);
+      } else {
+        setPath("");
+      }
+    };
+    getImage();
+  }, [username, userId]);
+
   const sendTweet = () => {
     try {
       const usernametmp = username;
@@ -42,13 +59,16 @@ const Main = () => {
       </Grid>
       <Grid item xs={4}>
         <div className="app-profile">
-          <ProfileManager />
+          <ProfileManager path={path} />
         </div>
         <div className="tweetBox">
           <form>
             <div className="tweetBox__input">
-              <Avatar src="https://maskenpa1001.s3.ap-northeast-1.amazonaws.com/icon_normal.png" />
-
+              {path ? (
+                <Avatar src={path} />
+              ) : (
+                <Avatar src="https://maskenpa1001.s3.ap-northeast-1.amazonaws.com/icon_normal.png" />
+              )}
               <input
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -82,7 +102,7 @@ const Main = () => {
             </Button>
           </form>
         </div>
-        <Modal/>
+        <Modal />
       </Grid>
     </Grid>
   );
