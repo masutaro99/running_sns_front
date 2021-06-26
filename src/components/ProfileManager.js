@@ -5,6 +5,8 @@ import { BsPersonCheckFill } from "react-icons/bs";
 import { MdAddAPhoto } from "react-icons/md";
 import { IconButton } from "@material-ui/core";
 import { Auth } from "aws-amplify";
+import { ApiContext } from "../context/ApiContext";
+import { BsPersonPlus } from "react-icons/bs";
 
 const useStyles = makeStyles((theme) => ({
   profile: {
@@ -45,6 +47,7 @@ const ProfileManager = (props) => {
   const classes = useStyles();
   const [username, setUsername] = useState([]);
   const [uid, setUid] = useState([]);
+  const { cover, setCover, createProfile } = useContext(ApiContext);
 
   const handleEditPicture = () => {
     const fileInput = document.getElementById("imageInput");
@@ -65,10 +68,24 @@ const ProfileManager = (props) => {
           alt="profile"
           className="profile-image"
         />
+        <input
+          type="file"
+          id="imageInput"
+          hidden="hidden"
+          //hidden=true
+          onChange={(event) => {
+            //console.log(event.target.files[0]);
+            setCover(event.target.files[0]);
+            event.target.value = "";
+          }}
+        />
         <IconButton onClick={handleEditPicture}>
           <MdAddAPhoto className="photo" />
         </IconButton>
       </div>
+      <button className="user" onClick={() => createProfile()}>
+        <BsPersonPlus />
+      </button>
       <div className="profile-details">
         <BsPersonCheckFill className="badge" /> {<span>{username}</span>}
         <hr />

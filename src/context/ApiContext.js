@@ -12,6 +12,7 @@ const ApiContextProvider = (props) => {
   const [editedtitle, setEditedTitle] = useState("");
   const [editeddescription, setEditedDescription] = useState("");
   const [editeddistance, setEditedDistance] = useState("");
+  const [cover, setCover] = useState([]);
   useEffect(() => {
     const getPractice = async () => {
       try {
@@ -42,6 +43,18 @@ const ApiContextProvider = (props) => {
       data
     );
   };
+  const createProfile = async () => {
+    const baseUrl = "http://localhost:3000/";
+    const presignedObject = await axios
+      .get(`${baseUrl}presignedurl?filename=${cover.name}&username=${username}`)
+      .then((response) => response.data)
+      .catch((e) => console.log(e.message));
+
+    const options = {
+      headers: { "Content-Type": "multipart/form-data" },
+    };
+    await axios.put(presignedObject.post_url, cover, options);
+  };
 
   return (
     <ApiContext.Provider
@@ -61,6 +74,9 @@ const ApiContextProvider = (props) => {
         setEditedDescription,
         editeddistance,
         setEditedDistance,
+        cover,
+        setCover,
+        createProfile,
       }}
     >
       {props.children}
