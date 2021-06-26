@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ApiContext } from "../context/ApiContext";
 import { Avatar } from "@material-ui/core";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
@@ -17,6 +17,24 @@ const Practice = ({ practiceData }) => {
     setEditedDescription,
     setEditedDistance,
   } = useContext(ApiContext);
+  const [path, setPath] = useState([]);
+
+  useEffect(() => {
+    const getImage = async () => {
+      const res = await axios.get(
+        process.env.REACT_APP_API_URL +
+          `imgs/1?username=${practiceData.username}`
+      );
+      console.log(res.data);
+      if (res.data !== null) {
+        setPath(res.data.imagepath);
+      } else {
+        setPath("");
+      }
+    };
+    getImage();
+  }, []);
+
   const editPractice = async () => {
     setSelectedEditTarget(practiceData.id);
     setEditedTitle(practiceData.title);
@@ -24,16 +42,22 @@ const Practice = ({ practiceData }) => {
     setEditedDistance(practiceData.distance);
     setShowModal(true);
   };
+
   const deletePractice = async () => {
     axios.delete(
       process.env.REACT_APP_API_URL + "practices/" + String(practiceData.id)
     );
     setPractices(practices.filter((dev) => dev.id !== practiceData.id));
   };
+
   return (
     <div className="practice">
       <div className="practice_avatar">
-        <Avatar src="https://maskenpa1001.s3.ap-northeast-1.amazonaws.com/icon_normal.png" />
+        {path ? (
+          <Avatar src={path} />
+        ) : (
+          <Avatar src="https://maskenpa1001.s3.ap-northeast-1.amazonaws.com/icon_normal.png" />
+        )}
       </div>
       <div className="practice_body">
         <span className="practice_title">
