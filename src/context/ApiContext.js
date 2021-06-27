@@ -16,10 +16,10 @@ const ApiContextProvider = (props) => {
   useEffect(() => {
     const getPractice = async () => {
       try {
-        //console.log(process.env.REACT_APP_API_URL + "practices");
+        console.log(process.env.REACT_APP_API_URL + "practices");
         const res = await axios.get(
-          process.env.REACT_APP_API_URL + "practices"
-          //"http://running-sns.masutaro99.com/practices"
+          //process.env.REACT_APP_API_URL + "practices"
+          "http://running-sns.masutaro99.com/practices"
         );
         setPractices(res.data);
       } catch {
@@ -44,7 +44,6 @@ const ApiContextProvider = (props) => {
     );
   };
   const createProfile = async () => {
-    //const baseUrl = "http://localhost:3000/";
     const presignedObject = await axios
       .get(
         `${process.env.REACT_APP_API_URL}presignedurl?filename=${cover.name}&username=${username}`
