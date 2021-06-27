@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import LocationOn from "@material-ui/icons/LocationOn";
 import { BsPersonCheckFill } from "react-icons/bs";
 import { MdAddAPhoto } from "react-icons/md";
 import { IconButton } from "@material-ui/core";
 import { ApiContext } from "../context/ApiContext";
-import { BsPersonPlus } from "react-icons/bs";
+import { BsTrash } from "react-icons/bs";
 
 const useStyles = makeStyles((theme) => ({
   profile: {
@@ -44,7 +43,14 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileManager = (props) => {
   const classes = useStyles();
-  const { setCover, createProfile, username, userId } = useContext(ApiContext);
+  const {
+    cover,
+    setCover,
+    createProfile,
+    username,
+    deleteProfile,
+    editProfile,
+  } = useContext(ApiContext);
 
   const handleEditPicture = () => {
     const fileInput = document.getElementById("imageInput");
@@ -67,9 +73,7 @@ const ProfileManager = (props) => {
           type="file"
           id="imageInput"
           hidden="hidden"
-          //hidden=true
           onChange={(event) => {
-            //console.log(event.target.files[0]);
             setCover(event.target.files[0]);
             event.target.value = "";
           }}
@@ -77,19 +81,28 @@ const ProfileManager = (props) => {
         <IconButton onClick={handleEditPicture}>
           <MdAddAPhoto className="photo" />
         </IconButton>
+        <div>{cover.name}</div>
       </div>
-      <button className="user" onClick={() => createProfile()}>
-        <BsPersonPlus />
-      </button>
+      {cover.name && props.path ? (
+        <button className="user" onClick={() => editProfile()}>
+          edit
+        </button>
+      ) : cover.name ? (
+        <button className="user" onClick={() => createProfile()}>
+          submit
+        </button>
+      ) : (
+        <div></div>
+      )}
+      {props.path ? (
+        <button className="trash" onClick={() => deleteProfile()}>
+          <BsTrash />
+        </button>
+      ) : (
+        <div></div>
+      )}
       <div className="profile-details">
         <BsPersonCheckFill className="badge" /> {<span>{username}</span>}
-        <hr />
-        {<span>ID：{userId}</span>}
-        <hr />
-        <label>
-          <LocationOn />
-          <span>JAPAN</span>
-        </label>
       </div>
     </div>
   );

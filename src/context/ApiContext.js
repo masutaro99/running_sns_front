@@ -44,9 +44,11 @@ const ApiContextProvider = (props) => {
     );
   };
   const createProfile = async () => {
-    const baseUrl = "http://localhost:3000/";
+    //const baseUrl = "http://localhost:3000/";
     const presignedObject = await axios
-      .get(`${baseUrl}presignedurl?filename=${cover.name}&username=${username}`)
+      .get(
+        `${process.env.REACT_APP_API_URL}presignedurl?filename=${cover.name}&username=${username}`
+      )
       .then((response) => response.data)
       .catch((e) => console.log(e.message));
 
@@ -54,6 +56,35 @@ const ApiContextProvider = (props) => {
       headers: { "Content-Type": "multipart/form-data" },
     };
     await axios.put(presignedObject.post_url, cover, options);
+    await axios.post(
+      `${process.env.REACT_APP_API_URL}imgs?imagepath=${presignedObject.get_url}&username=${username}`
+    );
+  };
+
+  const deleteProfile = async () => {
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}imgs/1?username=${username}`
+      );
+    } catch {
+      console.log("error");
+    }
+  };
+  const editProfile = async () => {
+    const presignedObject = await axios
+      .get(
+        `${process.env.REACT_APP_API_URL}presignedurl?filename=${cover.name}&username=${username}`
+      )
+      .then((response) => response.data)
+      .catch((e) => console.log(e.message));
+
+    const options = {
+      headers: { "Content-Type": "multipart/form-data" },
+    };
+    await axios.put(presignedObject.post_url, cover, options);
+    await axios.patch(
+      `${process.env.REACT_APP_API_URL}imgs/1?imagepath=${presignedObject.get_url}&username=${username}`
+    );
   };
 
   return (
@@ -77,6 +108,8 @@ const ApiContextProvider = (props) => {
         cover,
         setCover,
         createProfile,
+        deleteProfile,
+        editProfile,
       }}
     >
       {props.children}

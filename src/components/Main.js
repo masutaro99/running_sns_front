@@ -19,7 +19,6 @@ const Main = () => {
       const res = await axios.get(
         process.env.REACT_APP_API_URL + `imgs/1?username=${username}`
       );
-      console.log(res.data);
       if (res.data !== null) {
         setPath(res.data.imagepath);
       } else {
