@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import Grid from "@material-ui/core/Grid";
 import Practice from "./Practice";
 import ProfileManager from "./ProfileManager";
@@ -7,6 +7,7 @@ import { ApiContext } from "../context/ApiContext";
 import axios from "axios";
 import Modal from "./Modal";
 import dayjs from "dayjs";
+import SortButton from "./SortButton";
 
 const Main = () => {
   const [title, setTitle] = useState("");
@@ -16,6 +17,8 @@ const Main = () => {
   const { practices, username, userId } = useContext(ApiContext);
   const today = dayjs().format("YYYY-MM-DD");
   const [practicedate, setPracticedate] = useState([]);
+  const [sort, setSort] = useState({ key: "created_at", order: 1 });
+  const KEYS = ["id", "distance", "created_at", "username", "date"];
 
   useEffect(() => {
     const getImage = async () => {
@@ -31,6 +34,38 @@ const Main = () => {
     getImage();
     setPracticedate(today);
   }, [username, userId]);
+
+  const sortedPractices = useMemo(() => {
+    let sortedPractices = practices;
+    if (sort.key) {
+      sortedPractices = sortedPractices.sort((a, b) => {
+        a = a[sort.key];
+        b = b[sort.key];
+
+        if (a === b) {
+          return 0;
+        }
+        if (a > b) {
+          return 1 * sort.order;
+        }
+        if (a < b) {
+          return -1 * sort.order;
+        }
+      });
+    }
+    return sortedPractices;
+  }, [sort]);
+
+  const handleSort = (key) => {
+    if (sort.key === key) {
+      setSort({ ...sort, order: -sort.order });
+    } else {
+      setSort({
+        key: key,
+        order: 1,
+      });
+    }
+  };
 
   const handledate = async (props) => {
     setPracticedate(props);
@@ -57,10 +92,24 @@ const Main = () => {
   return (
     <Grid container>
       <Grid item xs={4}>
+        <div className="sort_buttons">
+          <h2>Sort by</h2>
+          {KEYS.map((key, index) => (
+            <SortButton
+              key={index}
+              button={key}
+              sort={sort}
+              handleSort={handleSort}
+            />
+          ))}
+        </div>
         <div className="app-practices">
           <div className="practices-list">
-            {practices.map((practice) => (
-              <Practice key={practice.id} practiceData={practice}></Practice>
+            {practices.map((sortedPractices) => (
+              <Practice
+                key={sortedPractices.id}
+                practiceData={sortedPractices}
+              ></Practice>
             ))}
           </div>
         </div>
