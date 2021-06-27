@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Practice from "./Practice";
 import ProfileManager from "./ProfileManager";
-import { Avatar, Button } from "@material-ui/core";
+import { Avatar, Button, TextField } from "@material-ui/core";
 import { ApiContext } from "../context/ApiContext";
 import axios from "axios";
 import Modal from "./Modal";
+import dayjs from "dayjs";
 
 const Main = () => {
   const [title, setTitle] = useState("");
@@ -13,6 +14,8 @@ const Main = () => {
   const [distance, setDistance] = useState("");
   const [path, setPath] = useState([]);
   const { practices, username, userId } = useContext(ApiContext);
+  const today = dayjs().format("YYYY-MM-DD");
+  const [practicedate, setPracticedate] = useState([]);
 
   useEffect(() => {
     const getImage = async () => {
@@ -26,7 +29,12 @@ const Main = () => {
       }
     };
     getImage();
+    setPracticedate(today);
   }, [username, userId]);
+
+  const handledate = async (props) => {
+    setPracticedate(props);
+  };
 
   const sendTweet = () => {
     try {
@@ -38,6 +46,7 @@ const Main = () => {
         distance: distance,
         username: usernametmp,
         userid: userIdtmp,
+        date: practicedate,
       };
       const res = axios.post(process.env.REACT_APP_API_URL + "practices", data);
     } catch {
@@ -91,6 +100,16 @@ const Main = () => {
               placeholder="Distance"
               type="number"
               step="0.1"
+            />
+            <TextField
+              onChange={(e) => handledate(e.target.value)}
+              id="date"
+              label="Practiceday"
+              type="date"
+              defaultValue={today}
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
             <Button
               onClick={sendTweet}
