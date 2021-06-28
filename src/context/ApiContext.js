@@ -22,8 +22,8 @@ const ApiContextProvider = (props) => {
           "http://running-sns.masutaro99.com/practices"
         );
         setPractices(res.data);
-      } catch {
-        console.log("error");
+      } catch (error) {
+        console.log(error.message);
       }
     };
     getPractice();
