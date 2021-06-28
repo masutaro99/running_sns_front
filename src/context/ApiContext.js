@@ -13,13 +13,14 @@ const ApiContextProvider = (props) => {
   const [editeddescription, setEditedDescription] = useState("");
   const [editeddistance, setEditedDistance] = useState("");
   const [cover, setCover] = useState([]);
+  const baseurl = "https://running-sns.masutaro99.com/";
   useEffect(() => {
     const getPractice = async () => {
       try {
         console.log(process.env.REACT_APP_API_URL + "practices");
         const res = await axios.get(
-          //process.env.REACT_APP_API_URL + "practices"
-          "http://running-sns.masutaro99.com/practices",
+          //process.env.REACT_APP_API_URL + "practices",
+          baseurl + "/practices",
           { headers: { "Content-type": "application/json" } }
         );
         setPractices(res.data);
@@ -42,6 +43,7 @@ const ApiContextProvider = (props) => {
     };
     axios.patch(
       process.env.REACT_APP_API_URL + "practices/" + String(selectedEditTarget),
+      //baseurl + "practices/" + String(selectedEditTarget),
       data
     );
   };
@@ -49,6 +51,7 @@ const ApiContextProvider = (props) => {
     const presignedObject = await axios
       .get(
         `${process.env.REACT_APP_API_URL}presignedurl?filename=${cover.name}&username=${username}`
+        //`${baseurl}presignedurl?filename=${cover.name}&username=${username}`
       )
       .then((response) => response.data)
       .catch((e) => console.log(e.message));
@@ -59,12 +62,14 @@ const ApiContextProvider = (props) => {
     await axios.put(presignedObject.post_url, cover, options);
     await axios.post(
       `${process.env.REACT_APP_API_URL}imgs?imagepath=${presignedObject.get_url}&username=${username}`
+      // `${baseurl}imgs?imagepath=${presignedObject.get_url}&username=${username}`
     );
   };
 
   const deleteProfile = async () => {
     try {
       await axios.delete(
+        // `${baseurl}imgs/1?username=${username}`
         `${process.env.REACT_APP_API_URL}imgs/1?username=${username}`
       );
     } catch {
@@ -75,6 +80,7 @@ const ApiContextProvider = (props) => {
     const presignedObject = await axios
       .get(
         `${process.env.REACT_APP_API_URL}presignedurl?filename=${cover.name}&username=${username}`
+        //`${baseurl}presignedurl?filename=${cover.name}&username=${username}`
       )
       .then((response) => response.data)
       .catch((e) => console.log(e.message));
@@ -84,6 +90,7 @@ const ApiContextProvider = (props) => {
     };
     await axios.put(presignedObject.post_url, cover, options);
     await axios.patch(
+      //`${baseurl}imgs/1?imagepath=${presignedObject.get_url}&username=${username}`
       `${process.env.REACT_APP_API_URL}imgs/1?imagepath=${presignedObject.get_url}&username=${username}`
     );
   };

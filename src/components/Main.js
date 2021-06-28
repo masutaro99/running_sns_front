@@ -83,7 +83,7 @@ const Main = () => {
         userid: userIdtmp,
         date: practicedate,
       };
-      const res = axios.post(process.env.REACT_APP_API_URL + "practices", data);
+      axios.post(process.env.REACT_APP_API_URL + "practices/", data);
     } catch {
       console.log("error");
     }

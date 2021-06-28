@@ -69,7 +69,6 @@ const Practice = ({ practiceData }) => {
         <div className="practice_distance">
           <p>Distance : {practiceData.distance} km</p>
           <p>date: {practiceData.date}</p>
-          <p>{practiceData.created_at}</p>
         </div>
         <div className="practice_footer">
           <ChatBubbleOutlineIcon fontSize="small" />
