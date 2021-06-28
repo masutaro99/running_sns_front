@@ -23,7 +23,7 @@ const Main = () => {
   useEffect(() => {
     const getImage = async () => {
       const res = await axios.get(
-        process.env.REACT_APP_API_URL + `imgs/1?username=${username}`
+        `${process.env.REACT_APP_API_URL}` + `imgs/1?username=${username}`
       );
       if (res.data !== null) {
         setPath(res.data.imagepath);
@@ -83,7 +83,7 @@ const Main = () => {
         userid: userIdtmp,
         date: practicedate,
       };
-      axios.post(process.env.REACT_APP_API_URL + "practices/", data);
+      axios.post(`${process.env.REACT_APP_API_URL}` + "practices/", data);
     } catch {
       console.log("error");
     }

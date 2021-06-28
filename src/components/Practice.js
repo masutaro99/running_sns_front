@@ -22,7 +22,7 @@ const Practice = ({ practiceData }) => {
   useEffect(() => {
     const getImage = async () => {
       const res = await axios.get(
-        process.env.REACT_APP_API_URL +
+        `${process.env.REACT_APP_API_URL}` +
           `imgs/1?username=${practiceData.username}`
       );
       if (res.data !== null) {
@@ -44,7 +44,9 @@ const Practice = ({ practiceData }) => {
 
   const deletePractice = async () => {
     axios.delete(
-      process.env.REACT_APP_API_URL + "practices/" + String(practiceData.id)
+      `${process.env.REACT_APP_API_URL}` +
+        "practices/" +
+        String(practiceData.id)
     );
     setPractices(practices.filter((dev) => dev.id !== practiceData.id));
   };

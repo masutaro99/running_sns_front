@@ -13,14 +13,13 @@ const ApiContextProvider = (props) => {
   const [editeddescription, setEditedDescription] = useState("");
   const [editeddistance, setEditedDistance] = useState("");
   const [cover, setCover] = useState([]);
-  const baseurl = "https://running-sns.masutaro99.com/";
+  //const baseurl = "https://running-sns.masutaro99.com/";
   useEffect(() => {
     const getPractice = async () => {
       try {
         console.log(process.env.REACT_APP_API_URL + "practices");
         const res = await axios.get(
           `${process.env.REACT_APP_API_URL}` + "practices",
-          //baseurl + "/practices",
           { headers: { "Content-type": "application/json" } }
         );
         setPractices(res.data);
@@ -42,7 +41,9 @@ const ApiContextProvider = (props) => {
       distance: distance,
     };
     axios.patch(
-      process.env.REACT_APP_API_URL + "practices/" + String(selectedEditTarget),
+      `${process.env.REACT_APP_API_URL}` +
+        "practices/" +
+        String(selectedEditTarget),
       //baseurl + "practices/" + String(selectedEditTarget),
       data
     );
