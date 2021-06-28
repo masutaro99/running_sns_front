@@ -23,8 +23,9 @@ const ApiContextProvider = (props) => {
           { headers: { "Content-type": "application/json" } }
         );
         setPractices(res.data);
+        console.log(res.data);
       } catch (error) {
-        console.log(error.message);
+        console.log(error);
       }
     };
     getPractice();
