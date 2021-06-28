@@ -19,8 +19,8 @@ const ApiContextProvider = (props) => {
       try {
         console.log(process.env.REACT_APP_API_URL + "practices");
         const res = await axios.get(
-          //process.env.REACT_APP_API_URL + "practices",
-          baseurl + "/practices",
+          `${process.env.REACT_APP_API_URL}` + "practices",
+          //baseurl + "/practices",
           { headers: { "Content-type": "application/json" } }
         );
         setPractices(res.data);
