@@ -19,7 +19,8 @@ const ApiContextProvider = (props) => {
         console.log(process.env.REACT_APP_API_URL + "practices");
         const res = await axios.get(
           //process.env.REACT_APP_API_URL + "practices"
-          "http://running-sns.masutaro99.com/practices"
+          "http://running-sns.masutaro99.com/practices",
+          { headers: { "Content-type": "application/json" } }
         );
         setPractices(res.data);
       } catch (error) {
