@@ -3686,6 +3686,11 @@ amazon-cognito-identity-js@4.6.3:
     isomorphic-unfetch "^3.0.0"
     js-cookie "^2.2.1"
 
+amazon-quicksight-embedding-sdk@^1.0.15:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/amazon-quicksight-embedding-sdk/-/amazon-quicksight-embedding-sdk-1.0.15.tgz#af30364a000060335ed9e4ab0e6ab04ec047bfee"
+  integrity sha512-QnWnECjOTuJ+JVEaSl/jQgn24iAvpB2VRr65/KE3EFr5ySBZL6G1vOgGVfiAFFs09s7wTsCaudoYb7JTF7SwHg==
+
 ansi-colors@^3.0.0:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.4.tgz"
