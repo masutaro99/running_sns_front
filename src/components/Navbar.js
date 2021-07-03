@@ -21,7 +21,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h5" className={classes.title}>
-          SNS App
+          Running SNS
         </Typography>
         <Badge className={classes.bg} badgeContent={3} color="secondary">
           <NotificationsIcon />

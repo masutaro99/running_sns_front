@@ -61,9 +61,7 @@ const Practice = ({ practiceData }) => {
         )}
       </div>
       <div className="practice_body">
-        <span className="practice_title">
-          {practiceData.title} id:{practiceData.id}
-        </span>
+        <span className="practice_title">{practiceData.title}</span>
         <span className="practice_username">by {practiceData.username}</span>
         <div className="practice_description">
           <p>{practiceData.description}</p>

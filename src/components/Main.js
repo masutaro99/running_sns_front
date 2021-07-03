@@ -120,7 +120,7 @@ const Main = () => {
     <Grid container>
       <Grid item xs={4}>
         <div className="sort_buttons">
-          <h2>Sort</h2>
+          <h2>Sort button</h2>
           {KEYS.map((key, index) => (
             <SortButton
               key={index}
