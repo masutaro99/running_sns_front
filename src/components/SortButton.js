@@ -1,5 +1,5 @@
 import React from "react";
-const dict = { distance: "距離", created_at: "投稿日", date: "練習日" };
+const dict = { distance: "距離", created_at: "投稿順", date: "練習日" };
 
 const SortButton = ({ button, handleSort, sort }) => {
   return (

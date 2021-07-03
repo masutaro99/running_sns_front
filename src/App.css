@@ -12,7 +12,7 @@
   background-color: #292f38;
   width: 15%;
   min-width: 270px;
-  height: 305px;
+  height: 265px;
   padding: 10px;
   margin: 10px 0px 30px 45px;
   border-radius: 5px;
@@ -55,7 +55,7 @@
   background-color: #292f38;
   width: 25%;
   min-width: 350px;
-  height: 700px;
+  height: 600px;
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
@@ -129,9 +129,10 @@
 /* 練習内容送信フォーム */
 
 .tweetBox {
+  padding-top: 30px;
   padding-bottom: 10px;
-  border-bottom: 8px solid var(--twitter-background);
-  padding-right: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .tweetBox > form {
@@ -139,12 +140,12 @@
   flex-direction: column;
 }
 
-.tweetBox__input {
+.tweetBox_icon_title {
   padding: 20px;
   display: flex;
 }
 
-.tweetBox__input > input {
+.tweetBox_icon_title > input {
   flex: 1;
   margin-left: 20px;
   font-size: 20px;
@@ -158,6 +159,7 @@
 .tweetBox_description {
   border: none;
   padding: 10px;
+  height: calc(1.3em * 5);
 }
 .tweetBox_distance {
   border: none;
@@ -181,7 +183,7 @@
 #modalContent {
   background-color: white;
   padding: 10px;
-  border-radius: "3px";
+  border-radius: "10px";
 }
 
 #overlay {
@@ -199,6 +201,7 @@
   justify-content: center;
 }
 
+/* ソートボタン関連 */
 .sort_buttons {
   text-align: center;
 }

@@ -120,7 +120,6 @@ const Main = () => {
     <Grid container>
       <Grid item xs={4}>
         <div className="sort_buttons">
-          <h2>Sort button</h2>
           {KEYS.map((key, index) => (
             <SortButton
               key={index}
@@ -146,8 +145,9 @@ const Main = () => {
           <ProfileManager path={path} />
         </div>
         <div className="tweetBox">
+          <h2>練習投稿フォーム</h2>
           <form>
-            <div className="tweetBox__input">
+            <div className="tweetBox_icon_title">
               {path ? (
                 <Avatar src={path} />
               ) : (
@@ -169,24 +169,26 @@ const Main = () => {
               placeholder="Description"
               type="text"
             />
-            <input
-              value={distance}
-              onChange={(e) => setDistance(e.target.value)}
-              className="tweetBox_distance"
-              placeholder="Distance"
-              type="number"
-              step="0.1"
-            />
-            <TextField
-              onChange={(e) => handledate(e.target.value)}
-              id="date"
-              label="Practiceday"
-              type="date"
-              defaultValue={today}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
+            <div className="tweetBox_distance_date">
+              <input
+                value={distance}
+                onChange={(e) => setDistance(e.target.value)}
+                className="tweetBox_distance"
+                placeholder="Distance"
+                type="number"
+                step="0.1"
+              />
+              <TextField
+                onChange={(e) => handledate(e.target.value)}
+                id="date"
+                label="Practiceday"
+                type="date"
+                defaultValue={today}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </div>
             <Button
               onClick={sendTweet}
               type="submit"
