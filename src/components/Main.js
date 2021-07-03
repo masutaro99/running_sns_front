@@ -162,12 +162,11 @@ const Main = () => {
               />
             </div>
 
-            <input
+            <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="tweetBox_description"
               placeholder="Description"
-              type="text"
             />
             <div className="tweetBox_distance_date">
               <input

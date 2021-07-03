@@ -10,6 +10,7 @@ import axios from "axios";
 const Practice = ({ practiceData }) => {
   const {
     practices,
+    username,
     setPractices,
     setShowModal,
     setSelectedEditTarget,
@@ -73,12 +74,24 @@ const Practice = ({ practiceData }) => {
         <div className="practice_footer">
           <ChatBubbleOutlineIcon fontSize="small" />
           <FavoriteBorderIcon fontSize="small" />
-          <button onClick={() => editPractice()}>
-            <EditIcon />
-          </button>
-          <button className="trash" onClick={() => deletePractice()}>
-            <BsTrash />
-          </button>
+          <span>
+            {username === practiceData.username ? (
+              <button onClick={() => editPractice()}>
+                <EditIcon />
+              </button>
+            ) : (
+              <span></span>
+            )}
+          </span>
+          <span>
+            {username === practiceData.username ? (
+              <button className="trash" onClick={() => deletePractice()}>
+                <BsTrash />
+              </button>
+            ) : (
+              <span></span>
+            )}
+          </span>
         </div>
       </div>
     </div>
