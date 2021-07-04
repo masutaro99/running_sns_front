@@ -243,3 +243,15 @@
   border-bottom: 4px solid #000;
   transform: rotate(315deg);
 }
+
+/* ranking関係 */
+.app-rankings {
+  background-color: #292f38;
+  width: 25%;
+  min-width: 350px;
+  height: 300px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}

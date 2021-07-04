@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState, useMemo } from "react";
 import Grid from "@material-ui/core/Grid";
 import Practice from "./Practice";
+import Ranking from "./Ranking";
 import ProfileManager from "./ProfileManager";
 import { Avatar, Button, TextField } from "@material-ui/core";
 import { ApiContext } from "../context/ApiContext";
@@ -16,8 +17,10 @@ const Main = () => {
   const [distance, setDistance] = useState("");
   const { practices, username, userId, path, setPath } = useContext(ApiContext);
   const today = dayjs().format("YYYY-MM-DD");
+  const month = dayjs().format("YYYY-MM");
   const [practicedate, setPracticedate] = useState([]);
   const [sort, setSort] = useState({ key: "created_at", order: 1 });
+  const [rankings, setRankings] = useState([]);
   const KEYS = ["distance", "created_at", "date"];
   const embedingurl =
     "https://ap-northeast-1.quicksight.aws.amazon.com/embed/a14a0bbfa22b4143b1ebd9c0cdede6a0/dashboards/69d6fe85-29d6-4a9b-a123-1997ce326b68?isauthcode=true&identityprovider=quicksight&code=AYABeILbYh3_QSkgXPjw8ZqEkbcAAAABAAdhd3Mta21zAFBhcm46YXdzOmttczphcC1ub3J0aGVhc3QtMTozNjcwOTQ1NjE4OTQ6a2V5LzkyZDU3MjEzLTc0MjItNGNhOC1iYWZiLTg2MDFjNGZkODgyNwC4AQIBAHirSky28MTsQkRRkQnrWly9-KCD9GJ1rJU8zazSG85WsgHXRaNmUTKz-G6KSwstcgosAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM9d7hezmleCPyKpO8AgEQgDvT5apTBFQJQppv_FxNr-y6OkwmSy4SB_V4d4yz7KKPh8i9zn_qhHf6akY_DrXfQPmYLCWmRvWJgcNYFQIAAAAADAAAEAAAAAAAAAAAAAAAAACAYDH1GETAbt0ujx2mCh2P_____wAAAAEAAAAAAAAAAAAAAAEAAACeQDaz8FBcF-Timi__9OU1ZDJ_N0ZhTtmv_oz4QAqemtWLeKa0YuDKCK3TaU-WuGUkTP_hcIp9T6VehwowvOmnCpsQdmQU0ST8YVx2Tg3FO2IdtW3FWFFUxJNYuEEI6gBefSiFhl4Ja4-v1e7YQ9He_TaCEz4ORMf-Xxth2PcFj8TGLB-btRtbH8V_MzsYDzArW5wSAR8ynsz-v1BG3lXRWi40PilTxJCMaSEgOXno";
@@ -34,8 +37,16 @@ const Main = () => {
         setPath("");
       }
     };
+    const getRanking = async () => {
+      const res = await axios.get(
+        "https://1isutj8e72.execute-api.ap-northeast-1.amazonaws.com/fifth/ranking?month=2021-06"
+      );
+      setRankings(res.data.body.Items);
+      console.log(res.data.body.Items);
+    };
     getImage();
     setPracticedate(today);
+    getRanking();
   }, [username]);
   useEffect(() => {
     const setdashboard = async () => {
@@ -200,6 +211,14 @@ const Main = () => {
       </Grid>
       <Grid item xs={4}>
         <div id="embeddingContainer"></div>
+        <h3>{month}の走行距離ランキング</h3>
+        <div className="app-rankings">
+          <div className="practices-list">
+            {rankings.map((ranking) => (
+              <Ranking key={ranking.username} rankingData={ranking}></Ranking>
+            ))}
+          </div>
+        </div>
       </Grid>
     </Grid>
   );
