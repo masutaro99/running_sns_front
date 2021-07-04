@@ -13,6 +13,8 @@ const ApiContextProvider = (props) => {
   const [editeddescription, setEditedDescription] = useState("");
   const [editeddistance, setEditedDistance] = useState("");
   const [cover, setCover] = useState([]);
+  const [editeddate, setEditedDate] = useState([]);
+  const [path, setPath] = useState([]);
   useEffect(() => {
     const getPractice = async () => {
       try {
@@ -33,11 +35,12 @@ const ApiContextProvider = (props) => {
       setUserId(data.attributes.sub);
     });
   }, [showModal]);
-  const editPracticePatch = (title, description, distance) => {
+  const editPracticePatch = (title, description, distance, date) => {
     const data = {
       title: title,
       description: description,
       distance: distance,
+      date: date,
     };
     axios.patch(
       `${process.env.REACT_APP_API_URL}` +
@@ -112,6 +115,10 @@ const ApiContextProvider = (props) => {
         createProfile,
         deleteProfile,
         editProfile,
+        editeddate,
+        setEditedDate,
+        path,
+        setPath,
       }}
     >
       {props.children}

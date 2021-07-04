@@ -14,8 +14,7 @@ const Main = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [distance, setDistance] = useState("");
-  const [path, setPath] = useState([]);
-  const { practices, username, userId } = useContext(ApiContext);
+  const { practices, username, userId, path, setPath } = useContext(ApiContext);
   const today = dayjs().format("YYYY-MM-DD");
   const [practicedate, setPracticedate] = useState([]);
   const [sort, setSort] = useState({ key: "created_at", order: 1 });
