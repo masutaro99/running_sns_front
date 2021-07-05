@@ -64,9 +64,7 @@ const Practice = ({ practiceData }) => {
         )}
       </div>
       <div className="practice_body">
-        <span className="practice_title">
-          {practiceData.title}id:{practiceData.id}
-        </span>
+        <span className="practice_title">{practiceData.title}</span>
         <span className="practice_username">by {practiceData.username}</span>
         <div className="practice_description">
           <p>{practiceData.description}</p>
@@ -76,8 +74,6 @@ const Practice = ({ practiceData }) => {
           <p>date: {practiceData.date}</p>
         </div>
         <div className="practice_footer">
-          <ChatBubbleOutlineIcon fontSize="small" />
-          <FavoriteBorderIcon fontSize="small" />
           <span>
             {username === practiceData.username ? (
               <button onClick={() => editPractice()}>

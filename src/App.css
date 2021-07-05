@@ -255,3 +255,36 @@
   border-radius: 5px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
 }
+
+.ranking {
+  display: flex;
+  align-items: flex-start;
+  padding-bottom: 10px;
+}
+
+.rankings-list {
+  width: 80%;
+  margin: auto;
+  max-height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.rank {
+  color: white;
+  vertical-align: middle;
+}
+
+.ranking_username {
+  font-weight: 800;
+  font-size: 20px;
+  color: gray;
+  text-align: center;
+}
+
+.ranking_distance {
+  font-weight: 600;
+  font-size: 20px;
+  color: gray;
+  float: right;
+}

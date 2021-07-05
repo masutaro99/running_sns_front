@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Avatar } from "@material-ui/core";
 import axios from "axios";
+import Typography from "@material-ui/core/Typography";
 
 const Ranking = ({ rankingData }) => {
   const [path, setPath] = useState([]);
@@ -21,7 +22,8 @@ const Ranking = ({ rankingData }) => {
   }, []);
 
   return (
-    <div className="practice">
+    <div className="ranking">
+      <span>{rankingData.rank}</span>
       <div className="practice_avatar">
         {path ? (
           <Avatar src={path} />
@@ -30,8 +32,8 @@ const Ranking = ({ rankingData }) => {
         )}
       </div>
       <div className="practice_body">
-        <span className="practice_title">{rankingData.username}</span>
-        <span className="practice_username">{rankingData.distance}</span>
+        <span className="ranking_username">{rankingData.username}</span>
+        <span className="ranking_distance">{rankingData.distance}km</span>
       </div>
     </div>
   );

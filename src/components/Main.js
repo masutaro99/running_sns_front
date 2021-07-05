@@ -22,8 +22,7 @@ const Main = () => {
   const [sort, setSort] = useState({ key: "created_at", order: 1 });
   const [rankings, setRankings] = useState([]);
   const KEYS = ["distance", "created_at", "date"];
-  const embedingurl =
-    "https://ap-northeast-1.quicksight.aws.amazon.com/embed/a14a0bbfa22b4143b1ebd9c0cdede6a0/dashboards/69d6fe85-29d6-4a9b-a123-1997ce326b68?isauthcode=true&identityprovider=quicksight&code=AYABeILbYh3_QSkgXPjw8ZqEkbcAAAABAAdhd3Mta21zAFBhcm46YXdzOmttczphcC1ub3J0aGVhc3QtMTozNjcwOTQ1NjE4OTQ6a2V5LzkyZDU3MjEzLTc0MjItNGNhOC1iYWZiLTg2MDFjNGZkODgyNwC4AQIBAHirSky28MTsQkRRkQnrWly9-KCD9GJ1rJU8zazSG85WsgHXRaNmUTKz-G6KSwstcgosAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM9d7hezmleCPyKpO8AgEQgDvT5apTBFQJQppv_FxNr-y6OkwmSy4SB_V4d4yz7KKPh8i9zn_qhHf6akY_DrXfQPmYLCWmRvWJgcNYFQIAAAAADAAAEAAAAAAAAAAAAAAAAACAYDH1GETAbt0ujx2mCh2P_____wAAAAEAAAAAAAAAAAAAAAEAAACeQDaz8FBcF-Timi__9OU1ZDJ_N0ZhTtmv_oz4QAqemtWLeKa0YuDKCK3TaU-WuGUkTP_hcIp9T6VehwowvOmnCpsQdmQU0ST8YVx2Tg3FO2IdtW3FWFFUxJNYuEEI6gBefSiFhl4Ja4-v1e7YQ9He_TaCEz4ORMf-Xxth2PcFj8TGLB-btRtbH8V_MzsYDzArW5wSAR8ynsz-v1BG3lXRWi40PilTxJCMaSEgOXno";
+  let i = 1;
   let dashboard;
 
   useEffect(() => {
@@ -50,13 +49,12 @@ const Main = () => {
   }, [username]);
   useEffect(() => {
     const setdashboard = async () => {
-      // const res = await axios.get(
-      //   "https://1isutj8e72.execute-api.ap-northeast-1.amazonaws.com/third/quicksight"
-      // );
+      const res = await axios.get(
+        "https://1isutj8e72.execute-api.ap-northeast-1.amazonaws.com/third/quicksight"
+      );
       if (!dashboard) {
         dashboard = embedDashboard({
-          //url: res.data.embed_url,
-          url: embedingurl,
+          url: res.data.embed_url,
           container: document.getElementById("embeddingContainer"), //埋め込み先のHTMLエレメント
           parameters: {
             username: "mas",
@@ -92,6 +90,26 @@ const Main = () => {
     }
     return sortedPractices;
   }, [sort]);
+
+  const sortedRankings = useMemo(() => {
+    let sortedRankings;
+    sortedRankings = rankings.sort((a, b) => {
+      a = a["distance"];
+      b = b["distance"];
+
+      if (a === b) {
+        return 0;
+      }
+      if (a > b) {
+        return -1;
+      }
+      if (a < b) {
+        return 1;
+      }
+    });
+    // for (let i = 0; i < srankings.length; i++) console.log(rankings[i]);
+    return sortedRankings;
+  }, [rankings]);
 
   const handleSort = (key) => {
     if (sort.key === key) {
@@ -213,9 +231,12 @@ const Main = () => {
         <div id="embeddingContainer"></div>
         <h3>{month}の走行距離ランキング</h3>
         <div className="app-rankings">
-          <div className="practices-list">
-            {rankings.map((ranking) => (
-              <Ranking key={ranking.username} rankingData={ranking}></Ranking>
+          <div className="rankings-list">
+            {sortedRankings.map((ranking) => (
+              <div>
+                <span class="rank">{i++}位</span>
+                <Ranking key={ranking.username} rankingData={ranking}></Ranking>
+              </div>
             ))}
           </div>
         </div>
