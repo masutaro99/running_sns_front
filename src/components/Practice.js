@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ApiContext } from "../context/ApiContext";
 import { Avatar } from "@material-ui/core";
-import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { BsTrash } from "react-icons/bs";
 import EditIcon from "@material-ui/icons/Edit";
 import axios from "axios";
@@ -18,6 +16,7 @@ const Practice = ({ practiceData }) => {
     setEditedDescription,
     setEditedDistance,
     setEditedDate,
+    setEditTargetDistance,
   } = useContext(ApiContext);
   const [path, setPath] = useState([]);
 
@@ -42,6 +41,7 @@ const Practice = ({ practiceData }) => {
     setEditedDescription(practiceData.description);
     setEditedDistance(practiceData.distance);
     setEditedDate(practiceData.date);
+    setEditTargetDistance(practiceData.distance);
     setShowModal(true);
   };
 
@@ -52,6 +52,12 @@ const Practice = ({ practiceData }) => {
         String(practiceData.id)
     );
     setPractices(practices.filter((dev) => dev.id !== practiceData.id));
+    axios.post(
+      `https://1isutj8e72.execute-api.ap-northeast-1.amazonaws.com/latestcors/ranking?month=${practiceData.date.substr(
+        0,
+        7
+      )}&username=${practiceData.username}&distance=${-practiceData.distance}`
+    );
   };
 
   return (

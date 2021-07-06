@@ -38,7 +38,7 @@ const Main = () => {
     };
     const getRanking = async () => {
       const res = await axios.get(
-        "https://1isutj8e72.execute-api.ap-northeast-1.amazonaws.com/fifth/ranking?month=2021-06"
+        `https://1isutj8e72.execute-api.ap-northeast-1.amazonaws.com/fifth/ranking?month=${month}`
       );
       setRankings(res.data.body.Items);
       console.log(res.data.body.Items);
@@ -107,7 +107,6 @@ const Main = () => {
         return 1;
       }
     });
-    // for (let i = 0; i < srankings.length; i++) console.log(rankings[i]);
     return sortedRankings;
   }, [rankings]);
 
@@ -139,6 +138,9 @@ const Main = () => {
         date: practicedate,
       };
       axios.post(`${process.env.REACT_APP_API_URL}` + "practices/", data);
+      axios.post(
+        `https://1isutj8e72.execute-api.ap-northeast-1.amazonaws.com/latestcors/ranking?month=${month}&username=${username}&distance=${distance}`
+      );
     } catch {
       console.log("error");
     }

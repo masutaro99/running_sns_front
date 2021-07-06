@@ -15,6 +15,7 @@ const ApiContextProvider = (props) => {
   const [cover, setCover] = useState([]);
   const [editeddate, setEditedDate] = useState([]);
   const [path, setPath] = useState([]);
+  const [edittargetdistance, setEditTargetDistance] = useState([]);
   useEffect(() => {
     const getPractice = async () => {
       try {
@@ -119,6 +120,8 @@ const ApiContextProvider = (props) => {
         setEditedDate,
         path,
         setPath,
+        edittargetdistance,
+        setEditTargetDistance,
       }}
     >
       {props.children}

@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { ApiContext } from "../context/ApiContext";
 import { Avatar, TextField, Button } from "@material-ui/core";
+import axios from "axios";
+import dayjs from "dayjs";
 
 const Modal = () => {
   const {
@@ -16,14 +18,18 @@ const Modal = () => {
     editeddate,
     setEditedDate,
     path,
-    setPath,
+    username,
+    setEditTargetDistance,
+    edittargetdistance,
   } = useContext(ApiContext);
+  const month = dayjs().format("YYYY-MM");
   const closeModal = () => {
     setShowModal(false);
     setEditedTitle("");
     setEditedDescription("");
     setEditedDistance("");
     setEditedDate("");
+    setEditTargetDistance("");
   };
   const editPractice = () => {
     editPracticePatch(
@@ -32,11 +38,16 @@ const Modal = () => {
       editeddistance,
       editeddate
     );
+    const distance_diff = editeddistance - edittargetdistance;
+    axios.post(
+      `https://1isutj8e72.execute-api.ap-northeast-1.amazonaws.com/latestcors/ranking?month=${month}&username=${username}&distance=${distance_diff}`
+    );
     setEditedTitle("");
     setEditedDescription("");
     setEditedDistance("");
     setShowModal(false);
     setEditedDate("");
+    setEditTargetDistance("");
   };
   return (
     <>
